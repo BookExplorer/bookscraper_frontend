@@ -1,9 +1,10 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
+from plotly.graph_objs import Figure, Choropleth
 
 
-def generate_graph(complete_data: pd.DataFrame):
+def generate_graph(complete_data: pd.DataFrame) -> Figure:
 
     # Custom colorscale
     custom_colorscale = [
@@ -12,8 +13,8 @@ def generate_graph(complete_data: pd.DataFrame):
         [1, "#ff4500"],  # dark orange for max count
     ]
     # Create a base map to show all country borders
-    fig = go.Figure(
-        data=go.Choropleth(
+    fig = Figure(
+        data=Choropleth(
             locations=complete_data["country"],
             z=complete_data["count"],
             locationmode="country names",
@@ -48,7 +49,7 @@ def generate_graph(complete_data: pd.DataFrame):
         ),
     )
 
-    fig.show()
+    return fig
 
 
 if __name__ == "__main__":
@@ -68,4 +69,4 @@ if __name__ == "__main__":
         }
     )
 
-    generate_graph(country_counts)
+    generate_graph(country_counts).show()
