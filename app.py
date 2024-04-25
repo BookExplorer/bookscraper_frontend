@@ -17,7 +17,7 @@ app.layout = html.Div(
         html.Button("Submit", id="submit-button", n_clicks=0),
         dcc.Graph(
             id="visualization-output",
-            style={"display": "none", "height": "90vh", "width": "90vw"},
+            style={"display": "none"},
         ),  # This will hide the graph in the start.
     ]
 )
@@ -50,11 +50,7 @@ def update_test(n_clicks, profile_url: str):
                 "height": "90vh",
                 "width": "90vw",
             }, figure  # Return style that makes the graph visible
-    return {
-        "display": "none",
-        "height": "90vh",
-        "width": "90vw",
-    }, Figure()  # Keeps the graph hidden
+    return {"display": "none"}, Figure()  # Keeps the graph hidden
 
 
 if __name__ == "__main__":
