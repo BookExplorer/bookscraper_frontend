@@ -6,7 +6,7 @@ from plotly.graph_objs import Figure
 import pdb
 
 app = Dash(__name__)
-
+application = app.server
 app.layout = html.Div(
     [
         dcc.Input(
@@ -15,6 +15,7 @@ app.layout = html.Div(
             placeholder="Enter Goodreads profile URL",
         ),
         html.Button("Submit", id="submit-button", n_clicks=0),
+        html.Div(id="message-output", style={"color": "red"}),
         dcc.Graph(
             id="visualization-output",
             style={"display": "none"},
@@ -45,12 +46,20 @@ def update_test(n_clicks, profile_url: str):
             )
             figure = generate_graph(df)
             # Logic to update the graph or process the input data
-            return {
-                "display": "block",
-                "height": "90vh",
-                "width": "90vw",
-            }, figure  # Return style that makes the graph visible
-    return {"display": "none"}, Figure()  # Keeps the graph hidden
+            return (
+                {
+                    "display": "block",
+                    "height": "90vh",
+                    "width": "90vw",
+                },
+                figure,
+            )  # Return style that makes the graph visible
+        else:
+            return {"display": "none"}, Figure()
+    return (
+        {"display": "none"},
+        Figure(),
+    )  # Keeps the graph hidden
 
 
 if __name__ == "__main__":
