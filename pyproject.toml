@@ -10,6 +10,7 @@ python = "^3.12"
 plotly = "^5.20.0"
 pandas = "^2.2.1"
 dash = "^2.16.1"
+pytest = "^8.1.2"
 
 
 [build-system]
