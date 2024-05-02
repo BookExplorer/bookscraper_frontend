@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookscraper-frontend-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: "8050"
+      port: 8050
+      targetPort: 8050
+  selector:
+    io.kompose.service: bookscraper-frontend
