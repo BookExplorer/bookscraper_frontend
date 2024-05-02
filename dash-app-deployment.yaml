@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookscraper-frontend-deployment  # Descriptive and clear
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookscraper-frontend  # This label should match the template metadata labels
+  template:
+    metadata:
+      labels:
+        app: bookscraper-frontend
+    spec:
+      containers:
+        - name: bookscraper-frontend-container
+          image: bookscraper_frontend-dash-app:v1
+          ports:
+            - containerPort: 8050
+          env:
+            - name: SERVER_HOST
+              value: "0.0.0.0"
+      restartPolicy: Always
