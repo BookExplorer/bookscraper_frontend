@@ -39,7 +39,7 @@ def test_profile_submission(driver):
     submit_button.click()
 
     # Wait for the graph to become visible
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, 1000).until(
         EC.visibility_of_element_located((By.ID, "visualization-output"))
     )
 

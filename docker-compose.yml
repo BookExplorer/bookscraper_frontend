@@ -8,6 +8,9 @@ services:
       - SERVER_HOST=0.0.0.0
     networks:
       - app-network
+    volumes:
+      - .:/app
 networks:
   app-network:
-    external: true
+    driver: bridge
+    name: bookscraper-network

@@ -31,7 +31,7 @@ app.layout = html.Div(
     State("profile-url-input", "value"),
 )
 def update_graph(n_clicks, profile_url: str):
-    url = "http://localhost:8000/process-profile/"
+    url = "http://app:8000/process-profile/"
     data = {"profile_url": profile_url}
     if n_clicks > 0 and profile_url:
         response = requests.post(url, json=data)
