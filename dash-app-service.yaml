@@ -9,4 +9,4 @@ spec:
       port: 8050
       targetPort: 8050
   selector:
-    io.kompose.service: bookscraper-frontend
+    app: bookscraper-frontend
