@@ -27,6 +27,7 @@ app.layout = html.Div(
 @callback(
     Output("visualization-output", "style"),
     Output("visualization-output", "figure"),
+    Output("message-output", "children"),
     Input("submit-button", "n_clicks"),
     State("profile-url-input", "value"),
 )
@@ -53,13 +54,11 @@ def update_graph(n_clicks, profile_url: str):
                     "width": "90vw",
                 },
                 figure,
+                "",
             )  # Return style that makes the graph visible
         else:
-            return {"display": "none"}, Figure()
-    return (
-        {"display": "none"},
-        Figure(),
-    )  # Keeps the graph hidden
+            return {"display": "none"}, Figure(), "not good!"
+    return ({"display": "none"}, Figure(), "")  # Keeps the graph hidden
 
 
 if __name__ == "__main__":
