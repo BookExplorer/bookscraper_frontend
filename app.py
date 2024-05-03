@@ -30,8 +30,8 @@ app.layout = html.Div(
     Input("submit-button", "n_clicks"),
     State("profile-url-input", "value"),
 )
-def update_test(n_clicks, profile_url: str):
-    url = "http://localhost:8000/process-profile/"
+def update_graph(n_clicks, profile_url: str):
+    url = "http://app:8000/process-profile/"
     data = {"profile_url": profile_url}
     if n_clicks > 0 and profile_url:
         response = requests.post(url, json=data)
@@ -63,4 +63,4 @@ def update_test(n_clicks, profile_url: str):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=8050)
