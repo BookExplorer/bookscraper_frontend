@@ -63,7 +63,11 @@ def update_graph(n_clicks, profile_url: str):
                 message = detail
             elif isinstance(detail, list):
                 message = detail[0]["msg"]
-            return ({"display": "none"}, Figure(), message)
+                return (
+                    {"display": "none"},
+                    Figure(),
+                    f"Status code: {response.status_code}, Error: {message}",
+                )
     return ({"display": "none"}, Figure(), "")  # Keeps the graph hidden
 
 
