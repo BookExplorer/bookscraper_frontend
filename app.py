@@ -32,7 +32,7 @@ app.layout = html.Div(
     State("profile-url-input", "value"),
 )
 def update_graph(n_clicks, profile_url: str):
-    url = "http://app:8000/process-profile/"
+    url = "http://localhost:8000/process-profile/"
     data = {"profile_url": profile_url}
     if n_clicks > 0 and profile_url:
         response = requests.post(url, json=data)
@@ -57,7 +57,13 @@ def update_graph(n_clicks, profile_url: str):
                 "",
             )  # Return style that makes the graph visible
         else:
-            return {"display": "none"}, Figure(), "not good!"
+
+            detail = response.json()["detail"]
+            if isinstance(detail, str):
+                message = detail
+            elif isinstance(detail, list):
+                message = detail[0]["msg"]
+            return ({"display": "none"}, Figure(), message)
     return ({"display": "none"}, Figure(), "")  # Keeps the graph hidden
 
 
