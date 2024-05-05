@@ -52,7 +52,7 @@ def test_profile_submission(driver):
     # For example, validate that the graph has expected data points or labels
 
 
-def test_invalid_profile_submission(driver):
+def test_invalid_url(driver):
     # Navigate to the Dash app
     driver.get("http://localhost:8050")
 
@@ -77,5 +77,34 @@ def test_invalid_profile_submission(driver):
     # Check if the error message is displayed
     message = driver.find_element(By.ID, "message-output").text
     assert (
-        "not good!" in message
+        "Status code: 422" in message
+    ), "Error message should be displayed for invalid profile URL"
+
+
+def test_invalid_goodreads_profile(driver):
+    # Navigate to the Dash app
+    driver.get("http://localhost:8050")
+
+    # Wait for the input element to be ready
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "profile-url-input"))
+    )
+
+    # Find the profile URL input and submit button
+    profile_input = driver.find_element(By.ID, "profile-url-input")
+    submit_button = driver.find_element(By.ID, "submit-button")
+
+    # Enter an invalid URL (e.g., without "https://www.goodreads.com/user/show/")
+    profile_input.send_keys("https://www.youtube.com/watch?v=jRESgqJIsoo")
+    submit_button.click()
+
+    # Wait for the message output to become visible
+    WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.ID, "message-output"))
+    )
+
+    # Check if the error message is displayed
+    message = driver.find_element(By.ID, "message-output").text
+    assert (
+        "Status code: 500" in message
     ), "Error message should be displayed for invalid profile URL"

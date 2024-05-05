@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y wget gnupg2 \
     && apt-get update && apt-get install -y google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
+# Expose debug port, adjust this to match the port in VSCode.
+EXPOSE 5679
 # Copy the rest of your application's code to the container
 COPY . /app
 # Command to run the Dash app
