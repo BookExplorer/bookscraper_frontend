@@ -4,8 +4,10 @@ services:
     build: .
     ports:
       - "8050:8050"
+      - "5679:5679" # Debug port
     environment:
       - SERVER_HOST=0.0.0.0
+      - DEBUG_MODE=true
     networks:
       - app-network
     volumes:
