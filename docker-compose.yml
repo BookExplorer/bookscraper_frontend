@@ -7,7 +7,7 @@ services:
       - "5679:5679" # Debug port
     environment:
       - SERVER_HOST=0.0.0.0
-      - DEBUG_MODE=true
+      - DEBUG_MODE=false
     networks:
       - app-network
     volumes:
