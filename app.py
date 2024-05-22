@@ -5,10 +5,7 @@ from graphs import generate_graph
 from plotly.graph_objs import Figure
 import os
 import debugpy
-from pyinstrument import Profiler
 
-profiler = Profiler()
-profiler.start()
 app = Dash(__name__)
 application = app.server
 app.layout = html.Div(
@@ -84,6 +81,3 @@ if __name__ == "__main__":
         print("🚀 Debugger attached!")
 
     app.run(debug=True, host="0.0.0.0", port=8050, use_reloader=False)
-    profiler.stop()
-    profiler.print()
-    profiler.save("profile.html")
