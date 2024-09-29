@@ -34,11 +34,11 @@ def test_profile_submission(driver):
 
     # Enter a URL and submit
     profile_input.send_keys(
-        "https://www.goodreads.com/user/show/6681479-lucas-pavanelli"
+        "https://www.goodreads.com/user/show/66681479-lucas-pavanelli"
     )
     submit_button.click()
 
-    # Wait for the graph to become visible
+    # Wait for the graph to become visible  
     WebDriverWait(driver, 1000).until(
         EC.visibility_of_element_located((By.ID, "visualization-output"))
     )
