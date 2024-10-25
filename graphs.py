@@ -1,20 +1,21 @@
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objs as go
 from plotly.graph_objs import Figure, Choropleth
+
+def make_colorscale(scale_max: int) -> list:
+    custom_colorscale = [
+        [0, "rgba(217, 217, 217, 1)"],  # grey for 0 count
+        [1.0 / scale_max, "#ffeda0"],  # light orange for min count
+        [1, "#ff4500"],  # dark orange for max count
+    ]
+    return custom_colorscale
 
 
 def generate_graph(complete_data: pd.DataFrame) -> Figure:
 
     # Custom colorscale
-    custom_colorscale = [
-        [0, "rgba(217, 217, 217, 1)"],  # grey for 0 count
-        [1.0 / complete_data["count"].max(), "#ffeda0"],  # light orange for min count
-        [1, "#ff4500"],  # dark orange for max count
-    ]
-    # Create a base map to show all country borders
-    fig = Figure(
-        data=Choropleth(
+    custom_colorscale = make_colorscale(complete_data["count"].max())
+
+    choropleth = Choropleth(
             locations=complete_data["country"],
             z=complete_data["count"],
             locationmode="country names",
@@ -22,7 +23,11 @@ def generate_graph(complete_data: pd.DataFrame) -> Figure:
             marker_line_color="black",  # Lines between countries
             marker_line_width=0.5,
             colorbar_title="Number of Authors",
+            
         )
+    # Create a base map to show all country borders
+    fig = Figure(
+        data=choropleth
     )
     fig.update_geos(
         projection_type="orthographic",
