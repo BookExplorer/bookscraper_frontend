@@ -80,4 +80,4 @@ if __name__ == "__main__":
         debugpy.wait_for_client()
         print("🚀 Debugger attached!")
 
-    app.run(debug=True, host="0.0.0.0", port=8050, use_reloader=False)
+    app.run(debug=False, host="0.0.0.0", port=8050, use_reloader=False)
