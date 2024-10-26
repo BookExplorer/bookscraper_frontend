@@ -10,21 +10,26 @@ def make_colorscale(scale_max: int) -> list:
     return custom_colorscale
 
 
-def generate_graph(complete_data: pd.DataFrame) -> Figure:
-
-    # Custom colorscale
-    custom_colorscale = make_colorscale(complete_data["count"].max())
-
+def make_choropleth(color_scale: list, complete_data: pd.DataFrame) -> Choropleth:
     choropleth = Choropleth(
             locations=complete_data["country"],
             z=complete_data["count"],
             locationmode="country names",
-            colorscale=custom_colorscale,
+            colorscale=color_scale,
             marker_line_color="black",  # Lines between countries
             marker_line_width=0.5,
             colorbar_title="Number of Authors",
             
         )
+    return choropleth
+
+
+def generate_graph(complete_data: pd.DataFrame) -> Figure:
+
+    # Custom colorscale
+    custom_colorscale = make_colorscale(complete_data["count"].max())
+
+    choropleth = make_choropleth(color_scale=custom_colorscale, complete_data=complete_data)
     # Create a base map to show all country borders
     fig = Figure(
         data=choropleth
