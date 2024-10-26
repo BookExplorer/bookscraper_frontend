@@ -2,8 +2,7 @@ import pandas as pd
 from plotly.graph_objs import Figure, Choropleth
 
 def make_colorscale(scale_max: int) -> list:
-    if scale_max <= 0:
-        scale_max = 1
+    scale_max = max(scale_max, 1)
     custom_colorscale = [
         [0, "rgba(217, 217, 217, 1)"],  # grey for 0 count
         [1.0 / scale_max, "#ffeda0"],  # light orange for min count
@@ -34,7 +33,7 @@ def generate_graph(complete_data: pd.DataFrame) -> Figure:
     choropleth = make_choropleth(color_scale=custom_colorscale, complete_data=complete_data)
     # Create a base map to show all country borders
     fig = Figure(
-        data=choropleth
+        data=choropleth,
     )
     fig.update_geos(
         projection_type="orthographic",
@@ -62,23 +61,3 @@ def generate_graph(complete_data: pd.DataFrame) -> Figure:
     )
 
     return fig
-
-
-if __name__ == "__main__":
-    # Sample data
-    country_counts = pd.DataFrame(
-        {
-            "country": [
-                "United States",
-                "United Kingdom",
-                "France",
-                "Germany",
-                "Canada",
-                "Australia",
-                "Brazil",
-            ],
-            "count": [20, 15, 10, 8, 5, 3, 2],
-        }
-    )
-
-    generate_graph(country_counts).show()

@@ -36,14 +36,25 @@ def test_colorscale_zeros():
     assert expected == colorscale
 
 
-def test_choropleth():
+def test_choropleth_regular():
     colorscale = graphs.make_colorscale(scale_max=max(COUNTS))
     choropleth = graphs.make_choropleth(colorscale, COUNTRY_COUNTS)
     assert all(choropleth.z == COUNTS)
     assert all(choropleth.locations == COUNTRIES)
     assert choropleth.locationmode == 'country names'
-    assert choropleth.colorscale == colorscale
-    print(choropleth)
+
+
+def test_choropleth_zeros():
+    cc = pd.DataFrame(
+       { "country": COUNTRIES,
+        "count": [0] * len(COUNTRIES)}
+    )
+    colorscale = graphs.make_colorscale(scale_max=0)
+    choropleth = graphs.make_choropleth(colorscale, cc)
+    assert all(choropleth.z == [0] * len(COUNTRIES))
+    assert all(choropleth.locations == COUNTRIES)
+    assert choropleth.locationmode == 'country names'
+    
 
 def test_graphing_function():
     country_counts = pd.DataFrame(
