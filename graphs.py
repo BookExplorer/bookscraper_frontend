@@ -2,6 +2,8 @@ import pandas as pd
 from plotly.graph_objs import Figure, Choropleth
 
 def make_colorscale(scale_max: int) -> list:
+    if scale_max <= 0:
+        scale_max = 1
     custom_colorscale = [
         [0, "rgba(217, 217, 217, 1)"],  # grey for 0 count
         [1.0 / scale_max, "#ffeda0"],  # light orange for min count
