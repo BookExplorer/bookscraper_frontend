@@ -14,14 +14,28 @@ app.layout = html.Div(
             id="profile-url-input",
             type="text",
             placeholder="Enter Goodreads profile URL",
+            style={"width": "300px", "height": "40px", "fontSize": "18px"},
         ),
-        html.Button("Submit", id="submit-button", n_clicks=0),
-        html.Div(id="message-output", style={"color": "red"}),
+        html.Button(
+            "Submit", 
+            id="submit-button", 
+            n_clicks=0, 
+            style={"width": "120px", "height": "40px", "fontSize": "16px", "margin": "10px"},
+        ),
+        html.Div(id="message-output", style={"color": "red", "fontSize": "16px", "marginTop": "10px"}),
         dcc.Graph(
             id="visualization-output",
-            style={"display": "none"},
-        ),  # This will hide the graph in the start.
-    ]
+            style={"display": "none", "width": "80%", "height": "500px", "marginTop": "20px"},
+        ),
+    ],
+    style={
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "height": "100vh",
+        "textAlign": "center",
+    },
 )
 
 
