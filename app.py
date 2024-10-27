@@ -4,12 +4,14 @@ import pandas as pd
 from graphs import generate_graph
 from plotly.graph_objs import Figure
 import logging
+import sys
 
 
 logging.basicConfig(
     level=logging.DEBUG,
-     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler(sys.stdout)])
+    
 logger = logging.getLogger(__name__)
 
 app = Dash(__name__)
@@ -94,4 +96,4 @@ def update_graph(n_clicks, profile_url: str):
 
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=8050, use_reloader=False)
+    app.run(debug=False, host="0.0.0.0", port=8050, use_reloader=True)
