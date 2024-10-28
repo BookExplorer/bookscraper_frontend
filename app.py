@@ -7,7 +7,7 @@ from logger import logger
 
 
 
-
+# TODO: The message needs to disappear after you submit something, otherwise it's very confusing!
 app = Dash(__name__)
 application = app.server
 app.layout = html.Div(
@@ -29,6 +29,7 @@ app.layout = html.Div(
             id="visualization-output",
             style={"display": "none", "width": "80%", "height": "500px", "marginTop": "20px"},
         ),
+        dcc.Store(id="previous-input-store")
     ],
     style={
         "display": "flex",
@@ -48,7 +49,7 @@ app.layout = html.Div(
     Input("submit-button", "n_clicks"),
     State("profile-url-input", "value"),
 )
-def update_graph(n_clicks, profile_url: str):
+def update_graph(n_clicks: int, profile_url: str):
     url = "http://app:8000/process-profile/"
     data = {"profile_url": profile_url}
     if n_clicks > 0 and profile_url:
