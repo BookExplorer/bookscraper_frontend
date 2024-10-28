@@ -3,16 +3,10 @@ import requests
 import pandas as pd
 from graphs import generate_graph
 from plotly.graph_objs import Figure
-import logging
-import sys
+from logger import logger
 
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler(sys.stdout)])
-    
-logger = logging.getLogger(__name__)
+
 
 app = Dash(__name__)
 application = app.server
