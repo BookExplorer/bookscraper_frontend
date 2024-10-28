@@ -59,7 +59,7 @@ def update_graph(n_clicks, profile_url: str):
     data = {"profile_url": profile_url}
     if n_clicks > 0 and profile_url:
         response = requests.post(url, json=data)
-        logger.debug(response.status_code)
+        logger.debug(f"Response status code was {response.status_code}")
         if response.ok:
             country_count = response.json()["data"]
             logger.debug(country_count)
