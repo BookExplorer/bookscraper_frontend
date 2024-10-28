@@ -3,8 +3,10 @@ import requests
 import pandas as pd
 from graphs import generate_graph
 from plotly.graph_objs import Figure
-import os
-import debugpy
+from logger import logger
+
+
+
 
 app = Dash(__name__)
 application = app.server
@@ -51,9 +53,10 @@ def update_graph(n_clicks, profile_url: str):
     data = {"profile_url": profile_url}
     if n_clicks > 0 and profile_url:
         response = requests.post(url, json=data)
+        logger.debug(f"Response status code was {response.status_code}")
         if response.ok:
             country_count = response.json()["data"]
-            print(country_count)
+            logger.debug(country_count)
             df = pd.DataFrame(
                 [
                     {"country": country, "count": count}
@@ -87,11 +90,4 @@ def update_graph(n_clicks, profile_url: str):
 
 
 if __name__ == "__main__":
-    # Start debugger if DEBUG_MODE is set to true
-    if os.getenv("DEBUG_MODE", "false").lower() == "true":
-        debugpy.listen(("0.0.0.0", 5679))
-        print("⏳ Waiting for debugger to attach...")
-        debugpy.wait_for_client()
-        print("🚀 Debugger attached!")
-
-    app.run(debug=False, host="0.0.0.0", port=8050, use_reloader=False)
+    app.run(debug=False, host="0.0.0.0", port=8050, use_reloader=True)
