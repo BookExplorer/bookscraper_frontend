@@ -25,11 +25,20 @@ app.layout = html.Div(
             style={"width": "120px", "height": "40px", "fontSize": "16px", "margin": "10px"},
         ),
         html.Div(id="message-output", style={"color": "red", "fontSize": "16px", "marginTop": "10px"}),
-        dcc.Graph(
-            id="visualization-output",
-            style={"display": "none", "width": "80%", "height": "500px", "marginTop": "20px"},
+        dcc.Loading(
+            id="loading",
+            type="default",
+            children=dcc.Graph(
+                id="visualization-output",
+                style={
+                    "display": "none",
+                    "width": "80%",
+                    "height": "500px",
+                    "marginTop": "20px",
+                },
+            ),
         ),
-        dcc.Store(id="previous-input-store")
+        dcc.Store(id="previous-input-store", data = "")
     ],
     style={
         "display": "flex",
@@ -43,9 +52,17 @@ app.layout = html.Div(
 
 
 @callback(
+    Output("message-output", "children"),
+    Input("previous-input-store", "data"),
+)
+def display_message(msg: str):
+    return msg
+
+
+@callback(
     Output("visualization-output", "style"),
     Output("visualization-output", "figure"),
-    Output("message-output", "children"),
+    Output("previous-input-store", "data"),
     Input("submit-button", "n_clicks"),
     State("profile-url-input", "value"),
 )
